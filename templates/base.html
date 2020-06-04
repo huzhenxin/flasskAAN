@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/popper.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.js') }}"></script>
+    <title>MDRIN</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!--logo及标题-->
+    <div class="logo no-gutters">
+        <!--        <img src="img/APENA.png">-->
+        <div class="h1 d-inline-block title">MDRIN</div>
+        &nbsp;&nbsp;
+        {% block title %}
+        {% endblock title %}
+    </div>
+    <!--导航栏-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for("index_pdb") }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Help
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{url_for("helps")}}">Help</a>
+                        <a class="dropdown-item" href="{{ url_for("tutorial") }}">Tutorial</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("contact") }}">Contact us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--内容-->
+    {% block container %}
+    {% endblock container %}
+</div>
+<!--绘图-->
+{% block  painter%}
+{% endblock painter %}
+</body>
+</html>
+

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">MD-based Residue Interaction Network</p>
+{% endblock title %}
+{% block container %}
+    <div class="content">
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link" id="v-pills-home-tab" href="{{ url_for("index_PDB") }}" role="tab"
+                       aria-controls="v-pills-home" aria-selected="true">Protein</a>
+                    <a class="nav-link active" id="v-pills-profile-tab"  href="{{ url_for("index_trajectory") }}" role="tab"
+                       aria-controls="v-pills-profile" aria-selected="false">MD trajectory</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <form class="float-left all">
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-1 col-form-label col-form-label-md">PDB</label>
+                        <div class="col-5">
+                            <input id="file" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-1 col-form-label col-form-label-md">TOP</label>
+                        <div class="col-5">
+                            <input id="file2" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-1 col-form-label col-form-label-md">DCD</label>
+                        <div class="col-5">
+                            <input id="file3" type="file">
+                        </div>
+                    </div>
+                    <!--                    <div class="form-group row">-->
+                    <!--                        <label for="colFormLabelSm" class="col-1 col-form-label col-form-label-md">Chain</label>-->
+                    <!--                        <div class="col-3">-->
+                    <!--                            <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="A">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-4  col-form-label col-form-label-md">Weight</label>
+                        <select class="form-control col-2  weight form-control-sm">
+                            <option>Unweighted</option>
+                            <option>weight</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-4 col-form-label col-form-label-md lth">Energy Cutoff (Kcal/mol):
+                        </label>
+                        <div class="col-2">
+                            <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="0" name="Energy">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-4 col-form-label col-form-label-md lth">Residue
+                            separation</label>
+                        <div class="col-2">
+                            <input type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="1">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-sm col-3 btn01 font-weight-bold" style="font-size:20px">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock container %}

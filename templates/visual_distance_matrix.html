@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">Visual Distance Matrix Page</p>
+{% endblock title %}
+{% block container %}
+    <div class="content">
+        <div id="cv1">
+            <!-- use three.js to show protein network -->
+            <canvas id="c" class="d-inline-block"></canvas>
+			<!-- use ngl.js to show protein structure -->
+			<div id="viewport" style="width:600px; height:600px;" class="d-inline-block"></div>
+        </div>
+        <div class="row no-gutters">
+            <button type="button" class="btn btn-lg btn-light col-2 font-weight-bold">Save Network</button>
+            <button type="button" class="btn btn-lg btn-light col-2 font-weight-bold offset-sm-7 offset-2">Save Structure</button>
+        </div>
+        <br>
+		<!--可选项-->
+        <form>
+            <div class="form-group row">
+                <div class="clo-sm-8">
+                    <table id="dm_legend" class="table table-bordered" style="margin-left: 20px;">
+                        <tbody>
+                            <tr>
+                                <td colspan="10" align="center">
+                                    <h5>Distance in (Å)</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><h4>≤ 2</h4></td>
+                                <td><h4>≤ 4</h4></td>
+                                <td><h4>≤ 6</h4></td>
+                                <td><h4>≤ 8</h4></td>
+                                <td><h4>≤ 10</h4></td>
+                                <td><h4>≤ 12</h4></td>
+                                <td><h4>≤ 14</h4></td>
+                                <td><h4>≤ 16</h4></td>
+                                <td><h4>≤ 18</h4></td>
+                                <td><h4>&gt;18</h4></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="AF0000"></td>
+                                <td bgcolor="FF0000"></td>
+                                <td bgcolor="FF4B00"></td>
+                                <td bgcolor="FF7D00"></td>
+                                <td bgcolor="FFAF00"></td>
+                                <td bgcolor="FFFF00"></td>
+                                <td bgcolor="00FFFF"></td>
+                                <td bgcolor="00AFFF"></td>
+                                <td bgcolor="0000FF"></td>
+                                <td bgcolor="00004B"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="view" class="col-sm-2 col-form-label">View</label>
+                <div class="col-sm-2">
+                    <select id="view" class="form-control" onchange="window.location=this.value">
+                        <option value="{{ url_for("visual") }}">Network 3D</option>
+                        <option value="{{ url_for("visual_contact_map") }}">Contact Map</option>
+                        <option value="{{ url_for("visual_distance_matrix") }}" selected=selected>Distance Matrix</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="label"></div>
+{#    {% for i in protein.values() %}#}
+{#        <div>{{ i.resName }}</div>#}
+{#    {% endfor %}#}
+{% endblock container %}
+{% block  painter%}
+    <script>
+        var resNum = {{ resNum }};
+    </script>
+<script src="{{ url_for("static",filename="js/ngl.js") }}"></script>
+<script src="{{ url_for("static",filename="js/visual_ngl.js") }}"></script>
+<script src="{{ url_for("static",filename="js/three.js") }}"></script>
+<script src="{{ url_for("static",filename="js/OrbitControls.js") }}"></script>
+<script src="{{ url_for("static",filename="js/visual_distance_matrix.js") }}"></script>
+<script>
+	$(function() {
+		//使用on监听滚轮事件
+		$('#c').on('mousewheel', function(event) {
+			return false;
+		});
+	});
+</script>
+{% endblock painter %}

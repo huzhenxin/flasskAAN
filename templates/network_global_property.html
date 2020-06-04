@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">Network Global property</p>
+{% endblock title %}
+{% block container %}
+<div class="content">
+        <div class="row no-gutters" >
+            <table class="table table-bordered table-sm col-lg-3" style="margin-left:20px" cellspacing="0">
+                <caption>Network details</caption>
+                <tbody>
+                <tr>
+                    <td>PDB:</td>
+                    <td style="font-weight:normal">1AKI</td>
+                </tr>
+                <tr>
+                    <td>Weight:</td>
+                    <td style="font-weight:normal">unweighted</td>
+                </tr>
+                <tr>
+                    <td>Energy Cutoff(Kcal/mol)</td>
+                    <td style="font-weight:normal">-5</td>
+                </tr>
+                <tr>
+                    <td>Residue separation:</td>
+                    <td style="font-weight:normal">1</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-sm col-lg-3 offset-lg-1">
+                <caption>Global parameters</caption>
+                <tbody>
+                <tr>
+                    <td>Nodes:</td>
+                    <td style="font-weight:normal">129</td>
+                </tr>
+                <tr>
+                    <td>Eges:</td>
+                    <td style="font-weight:normal">56</td>
+                </tr>
+                <tr>
+                    <td>Diameter:</td>
+                    <td style="font-weight:normal">7.00</td>
+                </tr>
+                <tr>
+                    <td>Average degree:</td>
+                    <td style="font-weight:normal">7.61</td>
+                </tr>
+                <tr>
+                    <td>Average shortest path:</td>
+                    <td style="font-weight:normal">2.86</td>
+                </tr>
+                <tr>
+                    <td>Clustering coefficient:</td>
+                    <td style="font-weight:normal">0.55</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="btn-group col-lg-3 offset-1" role="group" aria-label="Basic example" id="function">
+                <div>
+                    <div align="center" style="font-size: 30px; margin-top: 10px; color:darkred">Network Analysis</div>
+                    <br>
+                    <div class="row">
+                        <button type="button" class="btn btn-light col-6 border"><a href="{{ url_for("visual") }}">Visual Analysis</a></button>
+                        <button type="button" class="btn btn-light col-6 border"><a href="{{ url_for("domain") }}">Domain View</a></button>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <button type="button" class="btn btn-light col-6 border"><a href="{{ url_for("network_node_property") }}">Node Centrality</a></button>
+                        <button type="button" class="btn btn-light col-6 border"><a href="">Edge Centrality</a></button>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <button type="button" class="btn btn-light col-6 border"><a href="{{ url_for("visual_shortest_distance") }}">Shortest path</a></button>
+                        <button type="button" class="btn btn-light col-6 border"><a href="">Community analysis</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock container %}

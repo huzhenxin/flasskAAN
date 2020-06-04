@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">Shortest Path Page</p>
+{% endblock title %}
+{% block container %}
+    <div class="content">
+        <div id="cv1">
+            <!-- use three.js to show protein network -->
+            <canvas id="c" class="d-inline-block"></canvas>
+            <!-- use ngl.js to show protein structure -->
+            <div id="viewport" style="width:600px; height:600px;" class="d-inline-block"></div>
+        </div>
+        <div class="row no-gutters">
+            <button type="button" class="btn btn-lg btn-light col-2 font-weight-bold">Save Network</button>
+            <button type="button" class="btn btn-lg btn-light col-2 font-weight-bold offset-sm-7 offset-2">Save
+                Structure
+            </button>
+        </div>
+        <br>
+        <!--可选项-->
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-4 col-form-label col-form-label-md">Start Residues</label>
+                    <input type="text" value="10,24,30,83">
+                    &nbsp;
+                    &nbsp;
+                    {#                    <a href="" style="color:cadetblue">Eg: 1,2,3 </a>#}
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-4 col-form-label col-form-label-md">End Residues</label>
+                    <input type="text" value="23,76,34,96">
+                    &nbsp;
+                    &nbsp;
+                    {#                     <a href="" style="color:cadetblue">Eg: 10,11,12 </a>#}
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-4 col-form-label col-form-label-md">Frequency Cutoff</label>
+                    <input type="text" value="60">
+                </div>
+                <div class="form-group row">
+                    <button class="btn btn-light border font-weight-bold" style="font-size:20px">Compute Shortest Path
+                    </button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <label class="col-6">Shortest path length: 6</label>
+                    <label class="col-4 offset-1">Frequency</label>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                               value="option1" checked>
+                        <label class="form-check-label" for="exampleRadios1" style="width:300px">
+                            A83-A79-A65-A78-A94-A96
+                        </label>
+                    </div>
+                    <div class="offset-2">
+                        <label class="d-block">80</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                               value="option1">
+                        <label class="form-check-label" for="exampleRadios1" style="width:300px">
+                            A10-A73-A25-A48-A34-A23
+                        </label>
+                    </div>
+                    <div class="offset-2">
+                        <label class="d-block">72</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                               value="option1">
+                        <label class="form-check-label" for="exampleRadios1" style="width:300px">
+                            A24-A71-A72-A91-A92-A34
+                        </label>
+                    </div>
+                    <div class="offset-2">
+                        <label class="d-block">65</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <button id="btn01">点我</button>
+
+    </div>
+    <div id="label"></div>
+    {#    {% for i in protein.values() %}#}
+    {#        <div>{{ i.resName }}</div>#}
+    {#    {% endfor %}#}
+{% endblock container %}
+{% block  painter %}
+
+    <script src="{{ url_for("static",filename="js/ngl.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/visual_ngl.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/three.js") }}"></script>
+    <script src='{{ url_for("static",filename="js/lines/LineSegmentsGeometry.js") }}'></script>
+    <script src='{{ url_for("static",filename="js/lines/LineGeometry.js") }}'></script>
+    <script src='{{ url_for("static",filename="js/lines/LineMaterial.js") }}'></script>
+    <script src='{{ url_for("static",filename="js/lines/LineSegments2.js") }}'></script>
+    <script src='{{ url_for("static",filename="js/lines/Line2.js") }}'></script>
+    <script src="{{ url_for("static",filename="js/OrbitControls.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/visual_three.js") }}"></script>
+    <script>
+        $(function () {
+            //使用on监听滚轮事件
+            $('#c').on('mousewheel', function (event) {
+                return false;
+            });
+        });
+        $("#exampleRadios1").bind("click", function () {
+            alert($("#exampleRadios1").val());
+        })
+    </script>
+{% endblock painter %}
+

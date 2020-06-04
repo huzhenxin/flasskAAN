@@ -1,0 +1,81 @@
+/*导航栏以及标题*/
+.logo{
+	width:1000px;
+}
+.logo .title{
+	background-color: cadetblue;
+	padding:10px 20px;
+	color:white;
+	border-radius: 10px;
+	margin-top:10px;
+	margin-bottom: 20px;
+}
+.nav-item{
+	margin: auto 20px;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+	color: #fff;
+	background-color: cadetblue;
+	width:150px;
+}
+.nav-link {
+	display: block;
+	padding: 0.5rem 1rem;
+	color:black;
+	font-weight: bold;
+	font-size:20px;
+}
+/*content通用样式*/
+div.content{
+	margin-top: 50px;
+	font-weight:bold;
+	font-size:20px;
+	/*margin-left: 40px;*/
+}
+div.content-show{
+	margin-top: 30px;
+	margin-left:130px;
+}
+/*index页面样式*/
+.btn01{
+	background-color: cadetblue;
+	color:white;
+}
+.all{
+	width:700px;
+}
+/*network_property页面样式*/
+caption {
+	text-align: center;
+	caption-side: top;
+	color:darkred;
+	font-size: 30px;
+}
+
+#function div div a{
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+	font-size:20px;
+}
+
+
+/*visual页面样式*/
+#cv1{
+	/*width:1000px;*/
+	margin-bottom: 30px;
+}
+canvas {
+	border:1px solid grey;
+	width:600px;
+	height: 600px;
+}
+#label {
+	position: absolute;
+	padding: 10px;
+	background: grey;
+	line-height: 1;
+	border-radius: 5px;
+	color:white;
+}

@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">Domain View</p>
+{% endblock title %}
+{% block container %}
+    <div class="content">
+        <div id="cv1">
+            <!-- use three.js to show protein network -->
+            <canvas id="c" class="d-inline-block"></canvas>
+			<!-- use ngl.js to show protein structure -->
+			<div id="viewport" style="width:600px; height:600px;" class="d-inline-block"></div>
+        </div>
+        <div class="row no-gutters align-items-center justify-content-center">
+            <button type="button" class="btn btn-light col-2 border">Save Network</button>
+            <button type="button" class="btn btn-light col-2 offset-8 border">Save Structure</button>
+        </div>
+        <br>
+		<!--可选项-->
+        <form>
+            <div class="form-group row">
+                <label for="view" class="col-sm-2 col-form-label">Number of domains</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <div id="domain1" class="form-group row">
+                <label for="view" class="col-sm-2 col-form-label">Domain1</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <input type="text" class="col-1">
+                &nbsp;&nbsp;
+                <div style="width:12px; background-color:#FFAB00"></div>
+            </div>
+            <div id="domain2" class="form-group row ">
+                <label for="view" class="col-sm-2 col-form-label">Domain2</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <input type="text" class="col-1">
+                &nbsp;&nbsp;
+                <div style="width:12px; background-color:#00FFFF"></div>
+            </div>
+            <div id="domain3" class="form-group row ">
+                <label for="view" class="col-sm-2 col-form-label">Domain3</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <input type="text" class="col-1">
+                &nbsp;&nbsp;
+                <div style="width:12px; background-color:#AF00FF"></div>
+            </div>
+            <div id="domain4" class="form-group row ">
+                <label for="view" class="col-sm-2 col-form-label">Domain4</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <input type="text" class="col-1">
+                &nbsp;&nbsp;
+                <div style="width:12px; background-color:#FF9600"></div>
+            </div>
+            <div id="domain5" class="form-group row ">
+                <label for="view" class="col-sm-2 col-form-label">Domain5</label>
+                <div class="col-sm-1">
+                    <select id="view" class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <input type="text" class="col-1">
+                &nbsp;&nbsp;
+                <div style="width:12px; background-color:#5AB366"></div>
+            </div>
+            <p style="color:cadetblue">Example: 1:10,25,30:35</p>
+        </form>
+        <button class="btn border offset-1"  onclick="window.location.href = 'https://www.baidu.com/'"> Color domain</button>
+    </div>
+    <div id="label"></div>
+    <div id="btn01">anniu</div>
+{% endblock container %}
+{% block  painter%}
+<script src="{{ url_for("static",filename="js/ngl.js") }}"></script>
+<script src="{{ url_for("static",filename="js/visual_ngl.js") }}"></script>
+<script src="{{ url_for("static",filename="js/three.js") }}"></script>
+<script src='{{ url_for("static",filename="js/lines/LineSegmentsGeometry.js") }}'></script>
+<script src='{{ url_for("static",filename="js/lines/LineGeometry.js") }}'></script>
+<script src='{{ url_for("static",filename="js/lines/LineMaterial.js") }}'></script>
+<script src='{{ url_for("static",filename="js/lines/LineSegments2.js") }}'></script>
+<script src='{{ url_for("static",filename="js/lines/Line2.js") }}'></script>
+<script src="{{ url_for("static",filename="js/OrbitControls.js") }}"></script>
+<script src="{{ url_for("static",filename="js/visual_three.js") }}"></script>
+<script>
+	$(function() {
+		//使用on监听滚轮事件
+		$('#c').on('mousewheel', function(event) {
+			return false;
+		});
+		$("#domain1").hide();
+		$("#domain2").hide();
+		$("#domain3").hide();
+		$("#domain4").hide();
+		$("#domain5").hide();
+		$("#label").hide();
+		$("#view").on("change",function(){
+		    var selected_val = document.getElementById("view").value;
+		    switch(selected_val) {
+                case "0":
+		            $("#domain1").hide();
+		            $("#domain2").hide();
+		            $("#domain3").hide();
+		            $("#domain4").hide();
+		            $("#domain5").hide();
+		            break;
+                case "1":
+		            $("#domain1").show();
+		            $("#domain2").hide();
+		            $("#domain3").hide();
+		            $("#domain4").hide();
+		            $("#domain5").hide();
+		            break;
+                case "2":
+		            $("#domain1").show();
+		            $("#domain2").show();
+		            $("#domain3").hide();
+		            $("#domain4").hide();
+		            $("#domain5").hide();
+		            break;
+                case "3":
+		            $("#domain1").show();
+		            $("#domain2").show();
+		            $("#domain3").show();
+		            $("#domain4").hide();
+		            $("#domain5").hide();
+		            break;
+                case "4":
+		            $("#domain1").show();
+		            $("#domain2").show();
+		            $("#domain3").show();
+		            $("#domain4").show();
+		            $("#domain5").hide();
+		            break;
+                case "5":
+		            $("#domain1").show();
+		            $("#domain2").show();
+		            $("#domain3").show();
+		            $("#domain4").show();
+		            $("#domain5").show();
+		            break;
+            }
+        })
+	});
+</script>
+{% endblock painter %}

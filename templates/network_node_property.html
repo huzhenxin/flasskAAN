@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+{% block title %}
+    <p class="h3 d-inline-block sub_title">Network Node property</p>
+{% endblock title %}
+{% block container %}
+    <div class="content">
+        <ul class="nav nav-pills nav-fill" id="network-property">
+            <li class="nav-item col-2" id="degree">
+                <a class="nav-link active" href="#">Degree Centrality</a>
+            </li>
+            <li class="nav-item col-2" style="width:300px" id="closeness">
+                <a class="nav-link" href="#">Closeness Centrality</a>
+            </li>
+            <li class="nav-item col-2" id = "betweenness">
+                <a class="nav-link" href="#">Betweenness Centrality</a>
+            </li>
+            <li class="nav-item col-2" id="eigenvector">
+                <a class="nav-link" href="#">Eigenvector Centrality</a>
+            </li>
+            <li class="nav-item col-2" id="clustering">
+                <a class="nav-link" href="#">Clustering coefficient</a>
+            </li>
+        </ul>
+        <br>
+        <div class="row">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <div id="Degree" style="width:1300px;height:500px;"></div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                     aria-labelledby="v-pills-profile-tab">
+                    <div id="Closeness" style="width: 900px;height:500px;"></div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                     aria-labelledby="v-pills-messages-tab">
+                    <div id="Betweenness" style="width: 900px;height:500px;"></div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                     aria-labelledby="v-pills-settings-tab">
+                    <div id="Eigenvector" style="width: 900px;height:500px;"></div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-clustering" role="tabpanel"
+                     aria-labelledby="v-pills-settings-tab">
+                    <div id="Clustering" style="width: 900px;height:500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock container %}
+
+{% block  painter %}
+    <script src="{{ url_for("static",filename="js/jquery.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/popper.min.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/bootstrap.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/echarts.js") }}"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('Degree'));
+        var myChart2 = echarts.init(document.getElementById('Closeness'));
+        var myChart3 = echarts.init(document.getElementById('Betweenness'));
+        var myChart4 = echarts.init(document.getElementById('Eigenvector'));
+        var myChart5 = echarts.init(document.getElementById('Clustering'));
+
+        //将不同的功能进行按键绑定
+        $('#degree').on('click', degree);
+        $('#degree').on('click',function(){
+            $("#network-property li a").removeClass("active");
+            $('#degree a').addClass("active");
+        })
+        $("#closeness").on('click',closeness);
+        $('#closeness').on('click',function(){
+            $("#network-property li a").removeClass("active");
+            $('#closeness a').addClass("active");
+        })
+        $("#betweenness").on('click',betweenness);
+        $('#betweenness').on('click',function(){
+            $("#network-property li a").removeClass("active");
+            $('#betweenness a').addClass("active");
+        })
+        $("#eigenvector").on('click',eigenvector);
+        $('#eigenvector').on('click',function(){
+            $("#network-property li a").removeClass("active");
+            $('#eigenvector a').addClass("active");
+        })
+        $("#clustering").on('click',clustering);
+        $('#clustering').on('click',function(){
+            $("#network-property li a").removeClass("active");
+            $('#clustering a').addClass("active");s
+        })
+
+        // 异步加载数据
+        // 获取得到每个残基的度的大小
+        function getData_degree(callback) {
+            $.ajax({
+                url: "/degree",    //flask中的路由
+                type: "POST",//请求方式
+                data: {"1": "hello"},//传送的数据
+                dataType: "json",//传送的数据类型
+                success: function (data) { //成功得到返回数据后回调的函数
+                    callback(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+
+        //获取得到每个残基的紧密中心性的值
+        function getData_closeness(callback) {
+            $.ajax({
+                url: "/closeness",    //flask中的路由
+                type: "POST",//请求方式
+                data: {"1": "hello"},//传送的数据
+                dataType: "json",//传送的数据类型
+                success: function (data) { //成功得到返回数据后回调的函数
+                    callback(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+
+        //获取得到每个残基的中介中心性的值
+        function getData_betweenness(callback) {
+            $.ajax({
+                url: "/betweenness",    //flask中的路由
+                type: "POST",//请求方式
+                data: {"1": "hello"},//传送的数据
+                dataType: "json",//传送的数据类型
+                success: function (data) { //成功得到返回数据后回调的函数
+                    callback(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+
+        //获取得到每个残基的特征向量中心性的值
+        function getData_eigenvector(callback) {
+            $.ajax({
+                url: "/eigenvector",    //flask中的路由
+                type: "POST",//请求方式
+                data: {"1": "hello"},//传送的数据
+                dataType: "json",//传送的数据类型
+                success: function (data) { //成功得到返回数据后回调的函数
+                    callback(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+
+        //获取得到每个残基的聚类系数的值
+        function getData_clustering(callback) {
+            $.ajax({
+                url: "/clustering",    //flask中的路由
+                type: "POST",//请求方式
+                data: {"1": "hello"},//传送的数据
+                dataType: "json",//传送的数据类型
+                success: function (data) { //成功得到返回数据后回调的函数
+                    callback(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+
+        //每一个功能的函数
+        function degree() {
+            getData_degree(function (data) {
+                var res = [];
+                var degree_centrality = [];
+                console.log(data);
+                for (var key in data) {
+                    res.push(key);
+                    console.log(key);
+                    degree_centrality.push(data[key]);
+                }
+                console.log(res);
+                myChart1.setOption({
+                    tooltip: {},
+                    grid: {
+                        left: '10%',
+                        bottom: '20%',
+                    },
+
+                    legend: {
+                        data: ['Degree Centrality']
+                    },
+                    xAxis: {
+                        data: res,
+                        axisLabel: {
+                            show: true,
+                            interval: 1,
+                            rotate: 270,
+                        },
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'Degree Centrality',
+                        type: 'line',
+                        data: degree_centrality
+                    }]
+                });
+            })
+        }
+
+        function closeness() {
+            getData_closeness(function (data) {
+                var res = [];
+                var closeness_centrality = [];
+                console.log(data);
+                for (var key in data) {
+                    res.push(key);
+                    console.log(key);
+                    closeness_centrality.push(data[key]);
+                }
+                console.log(res);
+                myChart1.setOption({
+                    tooltip: {},
+                    grid: {
+                        left: '10%',
+                        bottom: '20%',
+                    },
+
+                    legend: {
+                        data: ['Closeness Centrality']
+                    },
+                    xAxis: {
+                        data: res,
+                        axisLabel: {
+                            show: true,
+                            interval: 1,
+                            rotate: 270,
+                        },
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'Closeness Centrality',
+                        type: 'line',
+                        data: closeness_centrality
+                    }]
+                });
+            })
+        }
+
+        function betweenness() {
+            getData_betweenness(function (data) {
+                var res = [];
+                var betweenness_centrality = [];
+                console.log(data);
+                for (var key in data) {
+                    res.push(key);
+                    console.log(key);
+                    betweenness_centrality.push(data[key]);
+                }
+                console.log(res);
+                myChart1.setOption({
+                    tooltip: {},
+                    grid: {
+                        left: '10%',
+                        bottom: '20%',
+                    },
+
+                    legend: {
+                        data: ['Betweenness Centrality']
+                    },
+                    xAxis: {
+                        data: res,
+                        axisLabel: {
+                            show: true,
+                            interval: 1,
+                            rotate: 270,
+                        },
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'Betweenness Centrality',
+                        type: 'line',
+                        data: betweenness_centrality
+                    }]
+                });
+            })
+        }
+
+        function eigenvector() {
+            getData_eigenvector(function (data) {
+                var res = [];
+                var eigenvector_centrality = [];
+                console.log(data);
+                for (var key in data) {
+                    res.push(key);
+                    console.log(key);
+                    eigenvector_centrality.push(data[key]);
+                }
+                console.log(res);
+                myChart1.setOption({
+                    tooltip: {},
+                    grid: {
+                        left: '10%',
+                        bottom: '20%',
+                    },
+
+                    legend: {
+                        data: ['Eigenvector Centrality']
+                    },
+                    xAxis: {
+                        data: res,
+                        axisLabel: {
+                            show: true,
+                            interval: 1,
+                            rotate: 270,
+                        },
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'Eigenvector Centrality',
+                        type: 'line',
+                        data: eigenvector_centrality
+                    }]
+                });
+            })
+        }
+
+        function clustering() {
+            getData_clustering(function (data) {
+                var res = [];
+                var clustering_coefficient = [];
+                console.log(data);
+                for (var key in data) {
+                    res.push(key);
+                    console.log(key);
+                    clustering_coefficient.push(data[key]);
+                }
+                console.log(res);
+                myChart1.setOption({
+                    tooltip: {},
+                    grid: {
+                        left: '10%',
+                        bottom: '20%',
+                    },
+
+                    legend: {
+                        data: ['Clustering coefficient']
+                    },
+                    xAxis: {
+                        data: res,
+                        axisLabel: {
+                            show: true,
+                            interval: 1,
+                            rotate: 270,
+                        },
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: 'Clustering coefficient',
+                        type: 'line',
+                        data: clustering_coefficient
+                    }]
+                });
+            })
+        }
+
+        degree();
+    </script>
+{% endblock painter %}
+
